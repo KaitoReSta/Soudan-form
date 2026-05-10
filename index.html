@@ -54,6 +54,10 @@
     .success-msg p { font-size: 13px; line-height: 1.85; color: var(--text-2); }
     .fail-msg { display: none; margin-top: 20px; padding: 16px 20px; background: var(--red-dim); border: 1px solid rgba(192,57,43,0.2); border-radius: 8px; font-size: 13px; color: var(--red); line-height: 1.7; text-align: center; }
     @media (max-width: 600px) { nav { padding: 0 20px; } .wrap { padding: 36px 16px 72px; } .form-title { font-size: 20px; } .row2 { grid-template-columns: 1fr; } }
+    .success-email-check { margin-top: 20px; padding: 16px 20px; background: #fff; border: 1px solid var(--green-border); border-radius: 8px; text-align: left; }
+.email-check-label { font-size: 11px; font-weight: 600; color: var(--text-3); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.email-check-value { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 12px; word-break: break-all; }
+.email-check-note { font-size: 12px; color: var(--text-2); line-height: 1.8; }
   </style>
 </head>
 <body>
@@ -139,6 +143,11 @@
     <div class="success-icon">✓</div>
     <h3>送信ありがとうございます。</h3>
     <p>内容を確認し、どの業務をどこまで軽くできそうか確認します。<br>すぐに導入を勧めるのではなく、まずは小さく整理できる範囲を見ます。</p>
+    <div class="success-email-check">
+      <p class="email-check-label">送信先メールアドレス</p>
+      <p class="email-check-value" id="confirmedEmail"></p>
+      <p class="email-check-note">⚠️ メールアドレスはお間違いありませんか？<br>この画面のスクリーンショットを保存されることをお勧めします。</p>
+    </div>
   </div>
   <div id="failMsg" class="fail-msg" aria-live="polite">
     送信に失敗しました。<br>時間を置いて再度お試しください。
@@ -230,6 +239,7 @@ form.addEventListener('submit', async function(e) {
     form.reset();
     document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
     form.style.display = 'none';
+    document.getElementById('confirmedEmail').textContent = data.email;
     successMsg.style.display = 'block';
     successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
